@@ -46,8 +46,17 @@ export const SearchConditionSettings: React.FC = () => {
     return (
       <div className="SearchConditionSettings">
         <div className="SearchConditionSettings__error">
-          <p>데이터 로딩에 실패했습니다: {error}</p>
-          <button onClick={loadConditions}>다시 시도</button>
+          <div className="SearchConditionSettings__error-content">
+            <h2>데이터를 불러올 수 없습니다</h2>
+            <p>일시적인 문제로 검색 조건을 불러올 수 없습니다.</p>
+            <p>잠시 후 다시 시도해주세요.</p>
+            <button
+              className="SearchConditionSettings__retry-button"
+              onClick={loadConditions}
+            >
+              다시 시도
+            </button>
+          </div>
         </div>
       </div>
     );

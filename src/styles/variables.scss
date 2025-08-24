@@ -4,11 +4,11 @@ $color-primary-light: #FF8A65;
 $color-secondary: #666;
 $color-text: #333;
 $color-text-light: #999;
+$color-text-secondary: #666;
 $color-border: #E5E5E5;
 $color-bg: #F8F9FA;
 $color-white: #FFFFFF;
 $color-gray: #F5F5F5;
-$color-counter: #FF6B35; // 카운터를 주황색으로
 
 // Figma 디자인 색상
 $color-orange: #ff501b; // 주황색 (선택된 탭)
@@ -45,6 +45,7 @@ $font-weight-bold: 700;
 
 // Layout
 $border-radius: 8px;
+$border-radius-md: 10px; // 추가: 중간 크기 radius
 $border-radius-lg: 12px;
 $border-radius-xl: 16px; // 더 큰 radius 추가
 $shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
