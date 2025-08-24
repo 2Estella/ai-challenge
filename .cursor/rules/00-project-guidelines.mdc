@@ -1,0 +1,56 @@
+---
+description: "Project-wide Clean Code Guidelines (React + TS + Zustand + SCSS)"
+globs: ["**/*.{ts,tsx,scss}"]
+alwaysApply: true
+---
+
+# Clean Code Principles (Always)
+
+## General
+- Keep functions **small and pure**. Prefer composition over conditionals.
+- Apply **DRY/KISS/YAGNI**. Remove duplication. Avoid premature abstractions.
+- Use explicit names; avoid abbreviations. Booleans: `is*`, `has*`. Handlers: `handle*`.
+- Prefer **early return** over deep nesting. Extract branches for readability.
+- **Do not persist derived state**; compute on demand (selectors, `useMemo`).
+
+## TypeScript
+- `"strict": true`. No implicit any. No `@ts-ignore` unless justified with a comment.
+- Define **domain types in `/types`** and reuse across UI/store/API. Avoid shape duplication.
+- Public modules **export explicit types**; internal helpers keep **narrow exports**.
+- Prefer **discriminated unions** for finite state; consider **branded IDs** for identifiers.
+
+## Errors & Results
+- Never fail silently. Prefer a **typed Result** surface or exceptions caught at boundaries.
+```ts
+export type Result<T, E = { code: string; message: string }> =
+  | { ok: true; data: T }
+  | { ok: false; error: E };
+```
+- UI shows friendly messages; detailed logs only in dev.
+
+## Nullish & Immutability
+- Choose a consistent nullish policy: prefer undefined for “absent”, reserve null for “intentional empty”.
+- Use immutable updates; avoid in-place mutation outside controlled libs.
+
+## Comments & Docs
+- JSDoc for exported functions, complex algorithms, and store actions (purpose, params, return).
+- Comments explain “why”, not “what”. Prefer self-documenting code.
+
+## Formatting & Imports
+- Follow ESLint/Prettier (2-space indent, single quotes if project default, trailing commas where allowed).
+- Keep lines < 100–120 chars; break long params/props across lines.
+- Import order: std/built-in → external → internal alias (@/…) → relative. No circular deps.
+
+## React (high-level)
+- Functional components only. Props interface at top with required/optional/default 명시.
+- No inline styles; use SCSS modules (BEM).
+- Accessibility baseline: proper roles/aria, keyboard focus management (modals: focus trap & restore).
+- Avoid unnecessary state; derive from props/store when possible.
+
+## Performance (baseline)
+- Use selectors + shallow (Zustand) and useMemo/useCallback to prevent needless renders.
+- Pass minimal props; avoid passing whole objects if primitives/derived suffice.
+
+## Testing (baseline)
+- Any functional change includes at least one test (render/interaction or store action).
+- Async flows: test loading/error branches. Keep tests fast and deterministic (mocks over real network).

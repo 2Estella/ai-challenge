@@ -1,0 +1,16 @@
+---
+description: "Agent stage gates (Plan→Design→Implement→Verify)"
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Stage Gates
+- Default stage: **PLAN**.
+- The agent MUST NOT create/modify files unless the user writes:
+  `PROCEED: IMPLEMENT`.
+- Each stage outputs a short summary and waits for explicit consent.
+
+# Allowed per stage
+- PLAN: components/state/api outline **only** (markdown). No file edits.
+- DESIGN: interfaces, selectors, SCSS structure **as markdown**. No file edits.
+- IMPLEMENT: file creation limited to allowlist; commit small, atomic changes; then run typecheck/lint/test.

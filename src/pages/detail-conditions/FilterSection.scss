@@ -1,0 +1,226 @@
+
+.FilterSection {
+  background-color: #fff;
+  padding: 20px 0;
+  margin-bottom: 0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding: 0 20px;
+  }
+
+  &__title {
+    font-family: 'Apple SD Gothic Neo', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 17.86px;
+    font-weight: 700;
+    color: #171717;
+    margin: 0;
+    line-height: 28px;
+    letter-spacing: -0.5px;
+  }
+
+  &__counter {
+    font-family: 'Apple SD Gothic Neo', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 12px;
+    color: #ff501b;
+    font-weight: 400;
+    line-height: 12px;
+  }
+
+  &__content {
+    padding: 0 20px;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  &__toggle-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    border: 1px solid #f8f8f8;
+    border-radius: 30px;
+    background-color: #f8f8f8;
+    color: #6a6a6a;
+    font-family: 'Apple SD Gothic Neo', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 34px;
+
+    input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    span {
+      text-align: center;
+      line-height: 14px;
+    }
+
+    &.is-selected {
+      background-color: #fff8f6;
+      border-color: #ffddd2;
+      color: #ff501b;
+    }
+  }
+
+  &__description {
+    color: #6a6a6a;
+    font-family: 'Apple SD Gothic Neo', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 13.89px;
+    margin: 0 0 16px 0;
+    line-height: 20px;
+  }
+
+  &__keyword-section {
+    margin-bottom: 20px;
+  }
+
+  &__keyword-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+
+    h4 {
+      font-family: 'Apple SD Gothic Neo', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #171717;
+      margin: 0;
+      line-height: 22px;
+    }
+  }
+
+  &__keyword-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d2d2d2;
+    border-radius: 8px;
+    font-family: 'Apple SD Gothic Neo', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 13.89px;
+    color: #b8b8b8;
+    background-color: #fff;
+    line-height: 16.67px;
+
+    &::placeholder {
+      color: #b8b8b8;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: #ff501b;
+    }
+  }
+
+  &__keyword-exclude {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  &__keyword-add {
+    padding: 12px 20px;
+    background-color: #171717;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Apple SD Gothic Neo', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s ease;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 48px;
+    position: relative;
+
+    &:hover {
+      background-color: #333;
+    }
+  }
+
+  &__age {
+    margin-bottom: 16px;
+  }
+
+  &__age-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  &__age-title {
+    font-family: 'Apple SD Gothic Neo', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 17.86px;
+    font-weight: 700;
+    color: #171717;
+    margin: 0;
+    line-height: 28px;
+    letter-spacing: -0.5px;
+  }
+
+  // &__age-info {
+  // }
+
+  &__age-info-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    color: #6a6a6a;
+    font-family: 'Apple SD Gothic Neo', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 11.8125px;
+    font-weight: 400;
+    cursor: pointer;
+    padding: 0;
+    line-height: 16px;
+    height: 20px;
+
+    .FilterSection__info-icon {
+      color: #6a6a6a;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &__age-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d2d2d2;
+    border-radius: 8px;
+    font-family: 'Apple SD Gothic Neo', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 14px;
+    color: #b8b8b8;
+    background-color: #fff;
+    cursor: pointer;
+    line-height: 20px;
+
+    &:focus {
+      outline: none;
+      border-color: #ff501b;
+    }
+  }
+}

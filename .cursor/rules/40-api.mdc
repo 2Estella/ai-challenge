@@ -1,0 +1,76 @@
+---
+description: "API layer patterns (fetch, msw, error handling)"
+globs: ["**/*.{ts,tsx}"]
+alwaysApply: true
+---
+
+# API Rules
+
+## Structure
+- `/lib/api` → low-level clients (fetch helpers).
+- `/api` → domain functions (e.g., `getJobs`, `createJob`), returning typed results.
+- `/api/mocks` → MSW handlers colocated per domain (used in dev/test).
+
+## Fetch Helper
+- A single `request<T>(input, init?)` that:
+  - sets base URL, headers (JSON), credentials if needed,
+  - throws **typed ApiError** with `status/code/message`,
+  - parses JSON to `T`.
+
+## Usage
+- API funcs are **pure**: no direct UI side-effects. Store actions call them.
+- Validate inputs (runtime if risky) and narrow outputs to domain types.
+- Consider runtime schema validation (e.g. zod) for critical endpoints.
+
+## Error Handling
+- Use a dedicated `ApiError` class:
+  ```ts
+  export class ApiError extends Error {
+    status: number;
+    code?: string;
+    constructor(status: number, message: string, code?: string) {
+      super(message);
+      this.status = status;
+      this.code = code;
+    }
+  }
+  ```
+
+## Convenience Wrappers
+- Provide simple helpers for common HTTP verbs:
+  ```ts
+  export const get = <T>(url: string) => request<T>(url);
+  export const post = <T>(url: string, body: unknown) =>
+    request<T>(url, { method: 'POST', body: JSON.stringify(body) });
+  export const put = <T>(url: string, body: unknown) =>
+    request<T>(url, { method: 'PUT', body: JSON.stringify(body) });
+  export const del = <T>(url: string) =>
+    request<T>(url, { method: 'DELETE' });
+  ```
+
+## Example
+```ts
+// /lib/api/request.ts
+export async function request<T>(url: string, init?: RequestInit): Promise<T> {
+  const res = await fetch(url, {
+    ...init,
+    headers: {
+      'Content-Type': 'application/json',
+      ...(init?.headers ?? {}),
+    },
+  });
+
+  if (!res.ok) {
+    const msg = await res.text().catch(() => res.statusText);
+    throw new ApiError(res.status, msg);
+  }
+
+  return (await res.json()) as T;
+}
+
+// usage
+import { get, post } from '@/lib/api/request';
+
+export const getJobs = () => get<Job[]>('/api/jobs');
+export const createJob = (job: JobInput) => post<Job>('/api/jobs', job);
+```

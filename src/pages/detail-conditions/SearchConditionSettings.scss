@@ -1,0 +1,257 @@
+.SearchConditionSettings {
+  background-color: #ffffff;
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100vh;
+  position: relative;
+
+  &__header {
+    position: relative;
+    background-color: #fff;
+    border-bottom: 1px solid #f4f4f4;
+    padding: 16px 10px 15px 20px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+
+    &-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    &-control {
+      flex-shrink: 0;
+    }
+
+    &-base {
+      flex: 1;
+      text-align: center;
+      margin-left: 20px;
+    }
+
+    &-utils {
+      flex-shrink: 0;
+    }
+
+    .SearchConditionSettings__back {
+      width: 24px;
+      height: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        width: 24px;
+        height: 24px;
+        color: #171717;
+      }
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
+    .SearchConditionSettings__title {
+      font-family: 'Apple SD Gothic Neo', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #171717;
+      margin: 0;
+      text-align: left;
+      line-height: 22px;
+    }
+
+    .SearchConditionSettings__reset {
+      color: #171717;
+      font-family: 'Apple SD Gothic Neo', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      line-height: 20px;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  &__intro {
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-bottom: 1px solid #f4f4f4;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p {
+      color: #6a6a6a;
+      font-family: 'Apple SD Gothic Neo', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 13.89px;
+      font-weight: 400;
+      line-height: 20px;
+      margin: 0;
+      text-align: center;
+    }
+  }
+
+  &__content {
+    padding: 0 0 60px 0;
+  }
+
+  &__footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    transform: translateX(0);
+    width: 100%;
+    max-width: none;
+    border-top: 1px solid #d2d2d2;
+    background-color: #fff;
+    padding: 8px;
+    z-index: 1000;
+    height: 65px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__submit {
+    width: 100%;
+    height: 48px;
+    background-color: #ff501b;
+    color: #fff;
+    border: 1px solid #ff501b;
+    border-radius: 8px;
+    font-family: 'Apple SD Gothic Neo', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 15.875px;
+    font-weight: 600;
+    line-height: 22px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-align: center;
+
+    &:hover {
+      background-color: #e64417;
+    }
+  }
+
+  // &__loading {
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   min-height: 200px;
+  //   font-size: 1.1rem;
+  //   color: $color-text-light;
+  // }
+
+  // &__error {
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: center;
+  //   gap: $space-4;
+  //   padding: $space-6;
+  //   text-align: center;
+
+  //   p {
+  //     color: #d32f2f;
+  //     font-size: 1rem;
+  //   }
+
+  //   button {
+  //     padding: $space-2 $space-4;
+  //     background-color: $color-primary;
+  //     color: white;
+  //     border-radius: $border-radius;
+  //     font-weight: $font-weight-medium;
+
+  //     &:hover {
+  //       background-color: $color-primary-light;
+  //     }
+  //   }
+  // }
+}
+
+// 근무시간 직접 선택 셀렉트박스 스타일
+.filter-work-time__direct {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  margin: $space-4 0;
+
+  &__selectbox {
+    flex: 1;
+  }
+
+  &__selectbox-container {
+    position: relative;
+    width: 100%;
+    border: 1px solid $color-border-light;
+    border-radius: $border-radius;
+    background-color: $color-bg-primary;
+    padding: $space-3 $space-4;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+
+    select {
+      display: block;
+      width: 100%;
+      height: 100%;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-color: transparent;
+      border: none;
+      margin: 0;
+      font-family: inherit;
+      font-size: $font-size-sm;
+      cursor: pointer;
+      line-height: 1.4;
+      outline: none;
+      color: $color-text-muted;
+
+      &:focus {
+        color: $color-text-primary;
+      }
+
+      &:not([value=""]) {
+        color: $color-text-primary;
+      }
+
+      option {
+        color: $color-text-primary;
+        background-color: $color-bg-primary;
+        padding: $space-2 $space-3;
+
+        &:disabled {
+          color: $color-text-muted;
+        }
+      }
+    }
+
+    &__icon {
+      position: absolute;
+      right: $space-4;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: $color-text-muted;
+    }
+  }
+
+  &__separator {
+    color: $color-gray-medium;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-normal;
+  }
+}
+

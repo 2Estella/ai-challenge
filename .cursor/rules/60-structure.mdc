@@ -1,0 +1,35 @@
+---
+description: "Folder/file structure rules"
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Structure
+
+## Directories (baseline)
+- `/src`
+  - `/components` — pure UI, small reusable units
+  - `/features` — domain-specific composite UI
+  - `/stores` — Zustand slices
+  - `/lib` — utilities, validators, formatters
+  - `/lib/hooks` — custom React hooks
+  - `/api` — domain API functions + mocks
+  - `/styles` — globals, variables, mixins
+  - `/types` — shared TypeScript types
+  - `/constants` — enums, constants
+  - `/config` — environment configs, feature flags
+  - `/assets` — images, icons, fonts
+  - `/pages` — routing entry (framework-specific)
+
+## Conventions
+- One component per file; colocate SCSS and tests with the component.
+- Use index barrels only when they improve DX and do not cause circular deps.
+- Import paths use the `@/` alias from project root (configured via `tsconfig` `paths`).
+- Place large integration/E2E tests under `/tests` or `/e2e` (not next to components).
+
+## File Naming
+- Components: `PascalCase.tsx`
+- Stores: `*Store.ts`
+- Hooks: `use*.ts`
+- Tests: `*.test.ts(x)` colocated or in `__tests__/`
+- Mocks: `*.mock.ts`

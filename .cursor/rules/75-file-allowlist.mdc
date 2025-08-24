@@ -1,0 +1,25 @@
+---
+description: "Allowed edit paths (guardrail)"
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Allowed Edit Paths
+
+- /src/**
+- /api/**
+- /stores/**
+- /styles/**
+- /types/**
+- /tests/**
+- /ai/**
+
+# Logs (allow writing conversation logs)
+- /.cursor/logs/**
+
+# Config (only when necessary)
+- package.json
+- tsconfig.json
+- vitest.config.*
+- playwright.config.*
+- .eslintrc.*

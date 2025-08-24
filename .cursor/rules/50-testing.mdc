@@ -1,0 +1,44 @@
+---
+description: "Testing rules (Vitest + RTL + Playwright)"
+globs: ["**/*.{ts,tsx}"]
+alwaysApply: true
+---
+
+# Testing Rules
+
+## General
+- File naming: `*.test.ts(x)` for unit/component, `*.spec.ts(x)` for integration/E2E.
+- Co-locate tests with code when small; otherwise keep under `/tests`.
+- Aim for high-value coverage (core logic ~80%+). Skip trivial one-liners.
+- Naming: `describe(Component)` + `it('renders …')` with full-sentence style.
+
+## Unit/Component (Vitest + React Testing Library)
+- Test **public behavior** (render, interaction, output). Avoid testing internals.
+- Each critical component should include:
+  - Render snapshot (basic mount),
+  - Interaction (click, input, keyboard),
+  - a11y basics (role/label presence, keyboard navigation),
+  - Store selector correctness (mock store when needed).
+- Prefer `screen.getByRole` over `getByTestId` unless no semantic alternative.
+
+## Store (Zustand slices)
+- Test actions:
+  - Initial state correctness,
+  - Success/error branches,
+  - Immutable updates.
+- Async actions: mock API with MSW, assert `isLoading/error/data` transitions.
+
+## E2E (Playwright)
+- Cover only critical flows:
+  - Happy path: load → interact → result,
+  - Core regressions: auth, filters, CRUD happy path.
+- Store screenshots/videos on CI for failed runs.
+- Prefer deterministic locators (role, label, data-testid) over CSS selectors.
+
+## Accessibility
+- Include automated checks (e.g., `jest-axe` for unit, `@axe-core/playwright` for E2E).
+- Ensure focus management in modals/menus is tested.
+
+## Misc
+- Keep tests fast/deterministic. Avoid real timeouts/network.
+- Use `vi.useFakeTimers` or Playwright’s time mocking if time-dependent.

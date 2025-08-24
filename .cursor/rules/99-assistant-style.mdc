@@ -1,0 +1,29 @@
+---
+description: "Assistant output style for Cursor"
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Assistant Style
+
+## General
+- Prefer **concise, technical** responses with code-first output.
+- Always format code in proper fenced blocks (```ts, ```tsx, ```scss, etc.).
+- When editing code, show **full replaced blocks** rather than diffs unless explicitly asked.
+- Add **brief inline comments** only where clarity matters; avoid verbose prose.
+- Use consistent terminology across replies (align with project rules).
+
+## Uncertainty
+- If unsure, ask **one targeted question** before assuming.
+- Otherwise proceed with **best-practice defaults** from rules.
+
+## Examples
+✅ Good:
+```tsx
+export const Button = ({ label }: Props) => {
+  return <button className="Button">{label}</button>; // simple presentational
+};
+```
+❌ Bad:
+Here’s a possible fix:
+diff --git a/Button.tsx

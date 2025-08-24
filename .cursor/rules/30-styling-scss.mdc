@@ -1,0 +1,62 @@
+---
+description: "SCSS styling conventions (BEM, modules, tokens, responsive)"
+globs: ["**/*.scss"]
+alwaysApply: true
+---
+
+# SCSS Rules
+
+## Organization
+- Each component has a matching SCSS module/file; import at component top.
+- Use **BEM**: `.Component`, `.Component__element`, `.Component--modifier`.
+- Keep nesting depth <= 3. Avoid high specificity and `!important`.
+
+## Global Styles
+- `/styles/base.scss` defines reset/normalize, typography, and global element styles.
+- Maintain a **z-index scale** (e.g., `0, 10, 100, 1000`) and document layer usage (modal, dropdown, tooltip).
+- Typography tokens defined in `/styles/typography.scss`; no hard-coded font sizes.
+
+## Tokens & Utilities
+- Use variables/mixins from `styles/variables.scss` and `styles/mixins.scss`.
+- **Spacing scale**: multiples of 4px (`4, 8, 12, 16, ...`). Never arbitrary values.
+- **Color tokens** are semantic (`$color-primary`, `$color-error`, `$color-bg-muted`) rather than raw hex values.
+- No inline styles in TSX. No Tailwind or arbitrary class names outside the design system.
+
+## Responsive Rules
+- Use shared breakpoints from `styles/variables.scss` (`xs: 480px, sm: 768px, md: 1024px, lg: 1280px`).
+- Always wrap media queries in mixins:
+  ```scss
+  @include respond('md') {
+    font-size: 1.25rem;
+  }
+  ```
+- Prefer flex or grid over floats. Define layout utilities in /styles/layout.scss.
+
+## States & Accessibility
+- State classes like .is-active, .is-disabled live next to the block.
+- Provide focus-visible styles for keyboard users:
+  ```scss
+  &:focus-visible { outline: 2px solid $color-primary; }
+  ```
+
+## Theming
+- Theme support uses data-theme on <html> or <body>.
+- Dark mode tokens ($color-bg-dark, $color-text-dark) defined separately and switched via [data-theme='dark'].
+
+## Example
+```scss
+.ProfileCard {
+  display: grid;
+  gap: $space-2; // 8px
+
+  &__avatar { border-radius: 50%; }
+  &__name { font-weight: $font-weight-semibold; }
+  &--compact { gap: $space-1; } // 4px
+
+  &.is-active { border: 2px solid $color-primary; }
+
+  @include respond('md') {
+    grid-template-columns: 80px auto;
+  }
+}
+```

@@ -1,0 +1,115 @@
+---
+description: "Zustand state management rules"
+globs: ["**/*.{ts,tsx}"]
+alwaysApply: true
+---
+
+# Zustand Rules
+
+## Usage
+- Use Zustand **only** for global/shared state.
+  Local UI-only state stays inside components.
+- Components must never mutate state directly.
+  They call **actions** defined in the store.
+
+## Store Shape
+- One file per domain slice in `/stores`.
+  Optionally compose them in a root `useAppStore`.
+- Types:
+  - `State`: primitives, domain types.
+  - `Actions`: functions (`void | Promise<void>`), documented with JSDoc.
+  - `Store = State & Actions`.
+- Always provide a `reset()` action for testability and predictable cleanup.
+
+## Error & Status
+- Do not store raw error strings.
+  Define a standard error type:
+  ```ts
+  type AppError = { code: string; message: string };
+  ```
+- Prefer a unified status field:
+  ```ts
+  status: 'idle' | 'loading' | 'success' | 'error';
+  error?: AppError;
+  ```
+
+## Selectors & Performance
+- Components subscribe via selectors:
+  ```ts
+  useStore(s => s.items, shallow);
+  ```
+- Avoid selecting entire objects. Subscribe only to the primitive/derived value needed.
+- Export reusable selectors from /stores/selectors.ts for consistency.
+
+## Patterns
+- Async actions wrap API calls with try/catch/finally and update status + error.
+- Use immer middleware only if updates are complex; otherwise prefer explicit immutable updates.
+- Add subscribeWithSelector for fine-grained subscriptions when needed.
+- Use devtools middleware only in development.
+
+## Persistence
+- Use persist middleware only when necessary.
+- Each slice must have its own key.
+- Define version and migrate for forward compatibility.
+- Use partialize to persist only required state.
+
+## Example Scaffold
+```ts
+// /stores/jobStore.ts
+import { create } from 'zustand';
+import { shallow } from 'zustand/shallow';
+import { devtools, persist } from 'zustand/middleware';
+import type { Job } from '@/types';
+
+type AppError = { code: string; message: string };
+
+interface JobState {
+  items: Job[];
+  status: 'idle' | 'loading' | 'success' | 'error';
+  error?: AppError;
+}
+interface JobActions {
+  fetchJobs: () => Promise<void>;
+  addJob: (job: Job) => void;
+  removeJob: (id: string) => void;
+  reset: () => void;
+}
+export type JobStore = JobState & JobActions;
+
+export const useJobStore = create<JobStore>()(
+  devtools(
+    persist(
+      (set, get) => ({
+        items: [],
+        status: 'idle',
+        error: undefined,
+
+        async fetchJobs() {
+          set({ status: 'loading', error: undefined });
+          try {
+            const res = await fetch('/api/jobs');
+            const data: Job[] = await res.json();
+            set({ items: data, status: 'success' });
+          } catch (e) {
+            set({
+              status: 'error',
+              error: { code: 'FETCH_FAILED', message: (e as Error).message },
+            });
+          }
+        },
+
+        addJob(job) { set(s => ({ items: [...s.items, job] })); },
+        removeJob(id) { set(s => ({ items: s.items.filter(j => j.id !== id) })); },
+        reset() { set({ items: [], status: 'idle', error: undefined }); },
+      }),
+      {
+        name: 'job-store',
+        version: 1,
+        partialize: state => ({ items: state.items }),
+      }
+    )
+  )
+);
+```
+// usage in component
+// const items = useJobStore(s => s.items, shallow);

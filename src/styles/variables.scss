@@ -1,0 +1,56 @@
+// Colors
+$color-primary: #FF6B35;
+$color-primary-light: #FF8A65;
+$color-secondary: #666;
+$color-text: #333;
+$color-text-light: #999;
+$color-border: #E5E5E5;
+$color-bg: #F8F9FA;
+$color-white: #FFFFFF;
+$color-gray: #F5F5F5;
+$color-counter: #FF6B35; // 카운터를 주황색으로
+
+// Figma 디자인 색상
+$color-orange: #ff501b; // 주황색 (선택된 탭)
+$color-gray-light: #f8f8f8; // 연한 회색 (탭 배경)
+$color-gray-medium: #6a6a6a; // 중간 회색 (텍스트)
+$color-gray-hover: #f0f0f0; // 호버 시 회색
+
+// 근무시간 직접 선택 셀렉트박스 색상
+$color-text-muted: #b8b8b8; // 플레이스홀더 텍스트
+$color-text-primary: #333; // 선택된 텍스트
+$color-border-light: #e0e0e0; // 셀렉트박스 테두리
+$color-bg-primary: #fff; // 셀렉트박스 배경
+
+// Spacing
+$space-1: 4px;
+$space-2: 8px;
+$space-3: 12px;
+$space-4: 16px;
+$space-5: 20px;
+$space-6: 24px;
+$space-8: 32px;
+
+// Typography
+$font-size-xs: 12px;
+$font-size-sm: 14px;
+$font-size-base: 16px;
+$font-size-lg: 18px;
+$font-size-xl: 20px;
+
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// Layout
+$border-radius: 8px;
+$border-radius-lg: 12px;
+$border-radius-xl: 16px; // 더 큰 radius 추가
+$shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.15);
+
+// Breakpoints
+$breakpoint-sm: 480px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;

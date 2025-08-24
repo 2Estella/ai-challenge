@@ -1,0 +1,48 @@
+---
+description: "React component conventions"
+globs: ["**/*.tsx"]
+alwaysApply: true
+---
+
+# React Conventions
+
+## Component Structure
+- Functional components only. No class components.
+- File naming: `PascalCase` (e.g., `MyButton.tsx`).
+- One component per file. Default export (or consistent named export, but be consistent).
+- At the top: `interface Props` with required/optional clearly defined.
+  Provide defaults via parameter defaults/initializers, not `defaultProps`.
+- Single responsibility. If a component grows beyond ~200 lines or covers multiple concerns, split into subcomponents.
+
+## Props & Children
+- Distinguish required vs optional props explicitly.
+- For finite variants, use union types (`variant: 'primary' | 'secondary'`).
+- Avoid boolean prop explosion; prefer `variant="primary|ghost"` or `size="sm|md|lg"`.
+- Type children expectations explicitly (`children: ReactNode` vs `ReactElement`).
+- Provide safe defaults for optional primitives (`=''`, `=0`, `false`).
+
+## Hooks
+- Side-effects in `useEffect` with proper cleanup.
+- Derived values via `useMemo`. Event handlers via `useCallback`.
+- Avoid unnecessary state; derive from props or store whenever possible.
+- No prop drilling of global state — use Zustand selectors with `shallow`.
+
+## Accessibility
+- Use semantic HTML first (`<button>` instead of `<div>` for interactive elements).
+- Provide `aria-*`, `role`, and keyboard interactions (Enter/Space) where appropriate.
+- Manage focus in modals/menus (trap focus, restore on close).
+- All images must have `alt` (empty string if decorative).
+- Lists and headings must follow semantic nesting (`<ul><li>` not `<div>`).
+
+## Patterns
+- Maintain a clear boundary between Container (state/IO) and Presentational (pure UI) components.
+- No inline styles; use SCSS modules. Avoid global CSS leakage.
+- Prevent unnecessary re-renders: use store selectors with shallow compare; pass minimal props.
+- Always use stable keys for lists (domain IDs, never array indices).
+- Use `React.memo` for heavy or frequently rendered components (e.g., list items).
+
+## Testing
+- Each component should have at least one render test and tests for critical behaviors.
+- Prefer queries by role/text over test-id when possible.
+- Accessibility baseline: ensure ARIA roles are present in tests.
+- For async flows, test loading and error states explicitly.

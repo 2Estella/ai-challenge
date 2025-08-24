@@ -1,0 +1,57 @@
+@import '../../styles/variables.scss';
+
+.Checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+
+  &__input {
+    // 기본 체크박스 숨기기
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #d2d2d2;
+    border-radius: 50%; // 동그라미 모양
+    background: white;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+
+    &:checked {
+      border-color: $color-orange; // 주황색 테두리
+      background: $color-orange; // 주황색 배경
+
+      // 체크 표시 (흰색 체크마크)
+      &::after {
+        content: '✓';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 1;
+      }
+    }
+
+    &:hover {
+      border-color: $color-orange;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(255, 81, 27, 0.2);
+    }
+  }
+
+  &__label {
+    font-size: 14px;
+    color: #333;
+    font-weight: 400;
+  }
+}

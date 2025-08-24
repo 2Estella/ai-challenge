@@ -1,0 +1,29 @@
+---
+description: "Agent logging protocol (when/where/what)"
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Agent Logging Protocol
+
+## When
+- After a **Cursor Agent** task completes (Plan→Implement→Verify 종료 직후).
+- When the user asks to "**log this conversation so far**".
+
+## Where
+- Directory: `.cursor/logs/YYYY-MM/auto/`
+- Filename: `ai-conversation-YYYY-MM-DD.md`
+- If file exists, **append** a new entry separated by `---`.
+
+## What (sections)
+1. Summary (one-liner)
+2. Problem Analysis (complexity/priority/scope/est. time)
+3. Solution (approach, libs, code changes, steps)
+4. Result (achieved, metrics)
+5. Learnings (tips, refs)
+6. Next Steps (todos, risks)
+7. Tags/Priority
+
+## Style
+- Korean, concise, markdown, emojis for sections.
+- Small code blocks only when essential.
