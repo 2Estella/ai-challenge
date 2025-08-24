@@ -9,4 +9,3 @@ export { WorkDaysFilter } from './components/WorkDaysFilter';
 export { WorkTimeFilter } from './components/WorkTimeFilter';
 export { GenderFilter } from './components/GenderFilter';
 export { EmploymentTypeFilter } from './components/EmploymentTypeFilter';
-export { WorkAreaModal } from './components/WorkAreaModal';

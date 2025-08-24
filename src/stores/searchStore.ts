@@ -126,6 +126,9 @@ export const useSearchStore = create<SearchStore>()(
           // 6개월~1년 기본 선택
           toggleStates.workPeriod['6개월~1년'] = true;
 
+          // 남성 기본 선택
+          toggleStates.gender['남성'] = true;
+
           set({
             conditions,
             toggleStates,
