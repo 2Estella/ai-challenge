@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import type { WorkArea, WorkAreaModalProps } from '@/types/search';
-import areaData from '../../../../data/area.json';
+import type { AreaData } from '@/types/data';
+import { loadAreaData } from '@/lib/dataLoader';
 import './WorkAreaModal.scss';
 
 export const WorkAreaModal: React.FC<WorkAreaModalProps> = ({
@@ -13,26 +14,40 @@ export const WorkAreaModal: React.FC<WorkAreaModalProps> = ({
   const [groupSimilar, setGroupSimilar] = useState<boolean>(false);
   const [selectedCity, setSelectedCity] = useState<string>('');
   const [cityAllSelected, setCityAllSelected] = useState<boolean>(false);
+  const [areaData, setAreaData] = useState<AreaData | null>(null);
+
+  // area.json 데이터 로드
+  useEffect(() => {
+    if (isOpen) {
+      loadAreaData()
+        .then(data => {
+          setAreaData(data);
+        })
+        .catch(error => {
+          console.error('Failed to load area data:', error);
+        });
+    }
+  }, [isOpen]);
 
   // area.json 데이터를 사용하여 cities 구성
-  const cities = [
+  const cities = areaData ? [
     { id: 'I000', name: areaData.name, dataNo: 0 }
-  ];
+  ] : [];
 
-  const districts = areaData.collection.map((districtName, index) => ({
+  const districts = areaData ? areaData.collection.map((districtName: string, index: number) => ({
     id: `I${String(index + 10).padStart(3, '0')}`,
     name: districtName,
     type: 'district' as const,
     parentId: 'I000',
     dataNo: index
-  }));
+  })) : [];
 
   // 컴포넌트 마운트 시 첫 번째 지역 자동 선택
   useEffect(() => {
     if (cities.length > 0) {
       setSelectedCity(cities[0].id);
     }
-  }, []);
+  }, [cities]);
 
   const handleCitySelect = (cityId: string) => {
     setSelectedCity(cityId);
@@ -49,12 +64,12 @@ export const WorkAreaModal: React.FC<WorkAreaModalProps> = ({
 
     if (newCityAllSelected) {
       // 현재 선택된 도시의 모든 구/군을 선택
-      districts.forEach(district => {
+      districts.forEach((district: WorkArea) => {
         onAreaSelect(district);
       });
     } else {
       // 현재 선택된 도시의 모든 구/군을 제거
-      districts.forEach(district => {
+      districts.forEach((district: WorkArea) => {
         onAreaRemove(district.id);
       });
     }
@@ -162,7 +177,7 @@ export const WorkAreaModal: React.FC<WorkAreaModalProps> = ({
                   </div>
                 </div>
                 {/* 구/군 목록 */}
-                {districts.map(district => (
+                {districts.map((district: WorkArea) => (
                   <button
                     key={district.id}
                     className="WorkAreaModal__tab-item"

@@ -3,6 +3,7 @@ export interface WorkArea {
   name: string;
   type: 'city' | 'district';
   parentId?: string;
+  dataNo?: number;
 }
 
 export interface WorkAreaModalProps {
