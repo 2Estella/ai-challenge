@@ -105,7 +105,57 @@
   }
 
   &__content {
-    padding: 0 0 60px 0;
+    background-color: #ffffff;
+  }
+
+  // 선택된 지역 표시 스타일 추가
+  &__selected-areas {
+    margin-bottom: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &__selected-area {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background-color: #f0f8ff;
+    border: 1px solid #007bff;
+    border-radius: 20px;
+    font-size: 13px;
+    color: #007bff;
+    max-width: fit-content;
+  }
+
+  &__area-name {
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  &__area-remove {
+    background: none;
+    border: none;
+    padding: 2px;
+    cursor: pointer;
+    border-radius: 50%;
+    color: #007bff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+
+    &:hover {
+      background-color: #007bff;
+      color: #ffffff;
+    }
+
+    svg {
+      width: 12px;
+      height: 12px;
+    }
   }
 
   &__footer {
@@ -252,6 +302,56 @@
     color: $color-gray-medium;
     font-size: $font-size-sm;
     font-weight: $font-weight-normal;
+  }
+}
+
+// 선택된 지역 스타일
+.SearchConditionSettings__selected-areas {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.SearchConditionSettings__selected-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border: 1px solid #ffddd2;
+  border-radius: 4px;
+  background-color: #fff8f6;
+  color: #ff501b;
+  font-family: 'Apple SD Gothic Neo', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  min-height: 34px;
+  gap: 8px;
+}
+
+.SearchConditionSettings__area-name {
+  line-height: 14px;
+}
+
+.SearchConditionSettings__area-remove {
+  width: 16px;
+  height: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff501b;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  &:hover {
+    opacity: 0.7;
   }
 }
 

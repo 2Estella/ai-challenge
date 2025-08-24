@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSearchStore } from '@/stores/searchStore';
 import { FilterSection } from './FilterSection';
 import { FilterButton } from './FilterButton';
+import { WorkAreaModal } from './modal/WorkAreaModal';
 import Checkbox from '@/components/Checkbox';
 import Counter from '@/components/Counter';
 import { WorkPeriodFilter } from './components/WorkPeriodFilter';
@@ -19,7 +20,14 @@ export const SearchConditionSettings: React.FC = () => {
     checkboxes,
     setCheckbox,
     loadConditions,
-    reset
+    reset,
+    // 근무지역 관련 상태와 액션 추가
+    workAreaModal,
+    selectedWorkAreas,
+    openWorkAreaModal,
+    closeWorkAreaModal,
+    addWorkArea,
+    removeWorkArea
   } = useSearchStore();
 
   useEffect(() => {
@@ -78,8 +86,31 @@ export const SearchConditionSettings: React.FC = () => {
       {/* Filter Sections */}
       <div className="SearchConditionSettings__content">
         {/* 근무지역 */}
-        <FilterSection title="근무지역" maxCount={10} currentCount={0}>
-          <FilterButton label="추가하기" variant="add" />
+        <FilterSection title="근무지역" maxCount={10} currentCount={selectedWorkAreas.length}>
+          {/* 선택된 지역 표시 */}
+          {selectedWorkAreas.length > 0 && (
+            <div className="SearchConditionSettings__selected-areas">
+              {selectedWorkAreas.map(area => (
+                <div key={area.id} className="SearchConditionSettings__selected-area">
+                  <span className="SearchConditionSettings__area-name">{area.name}</span>
+                  <button
+                    className="SearchConditionSettings__area-remove"
+                    onClick={() => removeWorkArea(area.id)}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <FilterButton
+            label="추가하기"
+            variant="add"
+            onClick={openWorkAreaModal}
+          />
         </FilterSection>
 
         {/* 업직종 */}
@@ -161,6 +192,15 @@ export const SearchConditionSettings: React.FC = () => {
           0 건의 결과보기
         </button>
       </footer>
+
+      {/* 근무지역 모달 */}
+      <WorkAreaModal
+        isOpen={workAreaModal.isOpen}
+        onClose={closeWorkAreaModal}
+        selectedAreas={selectedWorkAreas}
+        onAreaSelect={addWorkArea}
+        onAreaRemove={removeWorkArea}
+      />
     </div>
   );
 };

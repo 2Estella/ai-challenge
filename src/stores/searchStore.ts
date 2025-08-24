@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import type { SearchConditions } from '@/types/data';
+import type { WorkArea } from '@/types/search';
 
 interface SearchState {
   // 데이터
@@ -28,6 +29,12 @@ interface SearchState {
     gender: Record<string, boolean>;
     employmentType: Record<string, boolean>;
   };
+
+  // 근무지역 관련 상태 추가
+  workAreaModal: {
+    isOpen: boolean;
+  };
+  selectedWorkAreas: WorkArea[];
 }
 
 interface SearchActions {
@@ -42,6 +49,12 @@ interface SearchActions {
 
   // 토글 상태 변경
   setToggleState: (category: string, key: string, checked: boolean) => void;
+
+  // 근무지역 모달 관련 액션 추가
+  openWorkAreaModal: () => void;
+  closeWorkAreaModal: () => void;
+  addWorkArea: (area: WorkArea) => void;
+  removeWorkArea: (areaId: string) => void;
 
   // 초기화
   reset: () => void;
@@ -72,7 +85,12 @@ const initialState: SearchState = {
     workTime: {},
     gender: {},
     employmentType: {}
-  }
+  },
+  // 근무지역 초기 상태
+  workAreaModal: {
+    isOpen: false
+  },
+  selectedWorkAreas: []
 };
 
 export const useSearchStore = create<SearchStore>()(
@@ -159,6 +177,48 @@ export const useSearchStore = create<SearchStore>()(
               [key]: checked
             }
           }
+        }));
+      },
+
+      // 근무지역 모달 관련 액션
+      openWorkAreaModal() {
+        set(state => ({
+          workAreaModal: {
+            ...state.workAreaModal,
+            isOpen: true
+          }
+        }));
+      },
+
+      closeWorkAreaModal() {
+        set(state => ({
+          workAreaModal: {
+            ...state.workAreaModal,
+            isOpen: false
+          }
+        }));
+      },
+
+      addWorkArea(area) {
+        set(state => {
+          // 중복 체크
+          const isDuplicate = state.selectedWorkAreas.some(
+            selectedArea => selectedArea.id === area.id
+          );
+
+          if (isDuplicate) {
+            return state;
+          }
+
+          return {
+            selectedWorkAreas: [...state.selectedWorkAreas, area]
+          };
+        });
+      },
+
+      removeWorkArea(areaId) {
+        set(state => ({
+          selectedWorkAreas: state.selectedWorkAreas.filter(area => area.id !== areaId)
         }));
       },
 

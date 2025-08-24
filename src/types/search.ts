@@ -6,6 +6,9 @@ export type WorkTime = 'morning' | 'afternoon' | 'evening' | 'dawn' | 'morning-a
 
 export type EmploymentType = 'parttime' | 'fulltime' | 'contract' | 'dispatch' | 'intern' | 'freelancer' | 'trainee';
 
+// WorkArea 관련 타입은 별도 파일로 분리
+export type { WorkArea, WorkAreaModalProps } from './workArea';
+
 export interface FilterSectionProps {
   title: string;
   maxCount?: number;
