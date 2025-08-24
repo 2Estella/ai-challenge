@@ -1,6 +1,6 @@
 # AI Challenge — Albamon Search Filter Clone
 
-[프로젝트 보기](https://ai-challenge-3wda4v0vt-estellas-projects-31e38480.vercel.app/)
+[프로젝트 보기](https://ai-challenge-five.vercel.app/)
 
 📂 추가 문서  
 - [.cursor 가이드](./.cursor/README.md)  
